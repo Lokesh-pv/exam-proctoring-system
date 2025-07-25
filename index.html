@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exam Proctoring System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: #f2f2f2;
+    }
+
+    #video {
+      border: 2px dashed #666;
+      width: 480px;
+      height: 360px;
+      margin-top: 20px;
+      background: #000;
+    }
+
+    .guidance {
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .button-row button {
+      padding: 10px 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #studentIdInput {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+    }
+
+    #referencePreview img {
+      margin: 10px;
+      border: 1px solid #ccc;
+      width: 120px;
+      height: 120px;
+    }
+
+    #startExamBtn {
+      margin-top: 25px;
+      padding: 10px 30px;
+      font-size: 18px;
+    }
+
+    #alertModal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      font-size: 18px;
+    }
+
+    #referencePreview {
+      margin-top: 30px;
+    }
+
+    #saveBtn, #startExamBtn, #stopExamBtn {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+      border-radius: 5px;
+    }
+
+    /* Hover animation */
+    #saveBtn:hover,
+    #startExamBtn:hover,
+    #stopExamBtn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Click animation */
+    #saveBtn:active,
+    #startExamBtn:active,
+    #stopExamBtn:active {
+    transform: scale(0.97);
+    background-color: #003d80;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <h1>Exam Proctoring System</h1>
+
+  <!-- Student ID -->
+  <input type="text" id="studentIdInput" placeholder="Enter Student ID" required>
+
+  <!-- Webcam + Guidance -->
+  <div id="cameraSection">
+    <video id="video" autoplay playsinline></video>
+    <div class="guidance" id="captureGuide">Align your face in the center</div>
+  </div>
+
+  <!-- Control Buttons -->
+  <div class="button-row">
+    <button id="recaptureBtn" disabled>Recapture</button>
+    <button id="nextCaptureBtn" disabled>Next</button>
+    <button id="saveBtn" disabled>Save</button>
+  </div>
+
+  <!-- Start Exam -->
+  <button id="startExamBtn" disabled>Start Exam</button>
+  <button id="stopExamBtn" disabled>Stop Exam</button>
+
+  <!-- Reference Images Preview -->
+  <div id="referencePreview">
+    <h3>Captured Reference Images:</h3>
+    <div id="previewImages"></div>
+  </div>
+
+  <!-- Monitoring Logs -->
+<div id="monitoringLog" style="margin-top: 30px;">
+  <h3>Monitoring Log:</h3>
+  <ul id="logList" style="text-align: left; max-width: 600px; margin: auto; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); list-style-type: none;"></ul>
+</div>
+
+  <!-- Camera Access Alert -->
+  <div id="alertModal">
+    <div class="modal-content">
+      ⚠️ Please enable camera access to continue.
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+
+</body>
+</html>
